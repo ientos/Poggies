@@ -63,12 +63,14 @@ function createMenuTitle() {
 }
 
 function mousePressed(mouseatX, mouseatY) {
-  if (mouseX >= 40 && mouseX <= 180 && mouseY >= 150 && mouseY <= 230) {
-    gameState = "SHAPE TAP";
-  } else if (mouseX >= 220 && mouseX <= 360 && mouseY >= 150 && mouseY <= 230) {
-    gameState = "LETTER TRACE";
-  } else if (mouseX >= 40 && mouseX <= 180 && mouseY >= 260 && mouseY <= 340) {
-    gameState = "PICTURE MATCH";
+  if (gameState == "MENU") {
+    if (mouseX >= 40 && mouseX <= 180 && mouseY >= 150 && mouseY <= 230) {
+      gameState = "SHAPE TAP";
+    } else if (mouseX >= 220 && mouseX <= 360 && mouseY >= 150 && mouseY <= 230) {
+      gameState = "LETTER TRACE";
+    } else if (mouseX >= 40 && mouseX <= 180 && mouseY >= 260 && mouseY <= 340) {
+      gameState = "PICTURE MATCH";
+    }
   }
 
 }
