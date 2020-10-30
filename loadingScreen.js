@@ -1,9 +1,10 @@
-let color;
+let timeOut = 1000;
 
 class loadingScreen {
 
   constructor() {
-    setTimeout(loading, 1000);
+    //waits timeOut milliseconds before executing loading()
+    setTimeout(loading, timeOut);
   }
 
   show() {
@@ -15,13 +16,13 @@ class loadingScreen {
     fill('red');
     textFont("Comic Sans MS");
     text("Loading...", (width / 2), (height / 2 - 100));
-
   }
 }
 
-
+//might add a loading animation
 function loading() {
-  setTimeout(goToMenu, 1000);
+  //waits timeOut milliseconds before executing goToMenu()
+  setTimeout(goToMenu, timeOut);
 }
 
 function goToMenu() {
