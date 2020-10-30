@@ -12,14 +12,11 @@ class pictureMatch {
     showCardOutline();
     showHomeButtonPM();
     showTitlePM();
-    canvas.mouseClicked(pictureMatchButtonClicked);
   }
 }
 
-
-
+//Title
 function showTitlePM() {
-  //Title
   textAlign(LEFT, CENTER);
   fill(200, 300, 300);
   strokeWeight(3);
@@ -32,8 +29,8 @@ function showTitlePM() {
   text("Picture Match!", 78, 76);
 }
 
+//Home button
 function showHomeButtonPM() {
-  //Home button
   noStroke();
   fill(255, 255, 204);
   rect(10, 10, homeButtonWidth, homeButtonHeight, 14);
@@ -44,8 +41,8 @@ function showHomeButtonPM() {
   text('Home', 20, 32);
 }
 
+//Picture card outline
 function showCardOutline() {
-  //Picture card outline
   stroke('white');
   strokeWeight(2);
   fill(98, 173, 188);
@@ -65,16 +62,4 @@ function showCardOutline() {
   rect(50, 425, cardWidth, cardHeight);
   rect(width / 2 - (cardWidth / 2), 425, cardWidth, cardHeight);
   rect(width - cardWidth - 50, 425, cardWidth, cardHeight);
-}
-
-function mouseClicked() {
-  if ((mouseX >= 10) && (mouseX <= 70) && (mouseY >= 10) && (mouseY <= 50)) {
-    gameState = "MENU";
-  }
-}
-
-function pictureMatchButtonClicked() {
-  if (mouseX >= 40 && mouseX <= 180 && mouseY >= 260 && mouseY <= 340) {
-    gameState = "PICTURE MATCH";
-  }
 }
