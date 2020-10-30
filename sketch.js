@@ -1,26 +1,26 @@
 let gameState = "LOADING";
-let menuButton;
-let canvas;
 
 function setup() {
-  canvas = createCanvas(400, 550);
+  createCanvas(400, 550);
 
   loadingScreen = new loadingScreen();
   menuDisplay = new menuDisplay();
   pictureMatch = new pictureMatch();
   shapeTap = new shapeTap();
   letterTrace = new letterTrace();
+  settings = new settings();
 
 }
 
 function draw() {
+  //clears screen
   clear();
 
   switch (gameState) {
     case "LOADING":
-      startLoading();      
+      startLoading();
       break;
-    case "MENU":      
+    case "MENU":
       startMenu();
       break;
     case "SHAPE TAP":
@@ -32,6 +32,8 @@ function draw() {
     case "PICTURE MATCH":
       startPictureMatch();
       break;
+    case "SETTINGS":
+      startSettings();
   }
 }
 
@@ -45,22 +47,30 @@ function startMenu() {
 
 function startShapeTap() {
   shapeTap.show();
-  canvas.mouseClicked(homeButtonClicked);
 }
 
 function startLetterTrace() {
   letterTrace.show();
-  canvas.mouseClicked(homeButtonClicked);
 }
 
 function startPictureMatch() {
   pictureMatch.show();
-  canvas.mouseClicked(homeButtonClicked);
 }
 
-function homeButtonClicked() {
-  //checks too see if user clicks on the home 'button'
-  if ((mouseX >= 10) && (mouseX <= 70) && (mouseY >= 10) && (mouseY <= 50)) {
-    gameState = "LOADING";
+function startSettings() {
+  settings.show();
+}
+
+function mousePressed() {
+  if (gameState == "MENU") {
+    if (mouseX >= 40 && mouseX <= 180 && mouseY >= 150 && mouseY <= 230) {
+      gameState = "SHAPE TAP"; 
+    } else if (mouseX >= 220 && mouseX <= 360 && mouseY >= 150 && mouseY <= 230) {
+      gameState = "LETTER TRACE";
+    } else if (mouseX >= 40 && mouseX <= 180 && mouseY >= 260 && mouseY <= 340) {
+      gameState = "PICTURE MATCH";
+    } else if (mouseX >= 320 && mouseX <= 381 && mouseY >= 17 && mouseY <= 46) {
+      gameState = "SETTINGS";
+    }
   }
 }
