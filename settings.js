@@ -1,5 +1,6 @@
 //old file
 //    uses images instead
+// need to add sliders and other setting options
 
 class settings {
 
