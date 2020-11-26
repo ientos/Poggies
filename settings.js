@@ -1,3 +1,6 @@
+//old file
+//    uses images instead
+
 class settings {
 
   show() {
