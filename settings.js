@@ -13,7 +13,7 @@ class settings {
 
     if (sliderRan == false) {
       sliderRan = true;
-      slider = createSlider(0, 1, musicVolume, 1 / 20);
+      slider = createSlider(0, 1, musicVolume, 1 / 40);
       slider.position(128, 50);
       slider.style('width', '80px');
       slider.size(140, 16);
