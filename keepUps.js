@@ -52,6 +52,7 @@ class keepUps {
 function endGame() {
   livesKU = livesGiven;
   pointsKU = 0;
+  speed = 1;
   image(tileMap, 110, 200, 200, 120, 686, 1100, 660, 420);
   textFont("Helvetica");
   textSize(25);
@@ -82,23 +83,23 @@ function showBall() {
 
 function showBuildings() {
   image(midBuilding, 0, 460, width, 220, 0, 700, 20, 20);
-  image(midBuilding, b1dx += 1 / 3, 140, 1200, 500);
+  image(midBuilding, b1dx += (0.3), 140, 1200, 500);
   if (b1dx > 600) {
     b1dx = -1680;
   }
-  image(front4, b4dx += 6 / 10, 330, 270, 240);
+  image(front4, b4dx += (0.65), 330, 270, 240);
   if (b4dx > 400) {
     b4dx = -200;
   }
-  image(front2, b3dx += 6 / 10, 325, 350, 280);
+  image(front2, b3dx += (0.65), 325, 350, 280);
   if (b3dx > 400) {
     b3dx = -340;
   }
-  image(front1, b2dx += 6 / 10, 410, 280, 150);
+  image(front1, b2dx += (0.65), 410, 280, 150);
   if (b2dx > 380) {
     b2dx = -270;
   }
-  image(front3, b5dx += 6 / 10, 330, 270, 240);
+  image(front3, b5dx += (0.65), 330, 270, 240);
   if (b5dx > 400) {
     b5dx = -200;
   }
@@ -127,6 +128,7 @@ function showKeepUpsTitle() {
   image(tileMap, 95, 24, 220, 60, 30, 2265, 764, 196);
   textStyle(BOLDITALIC);
   textSize(20);
+  strokeWeight(0);
   fill('black');
   text(("Points: " + pointsKU), 130, 100);
   text(("Lives: " + livesKU), 260, 100);
@@ -135,7 +137,7 @@ function showKeepUpsTitle() {
 function moveBall() {
   xKU = random(50, 350);
   yKU = 100;
-  //speed = 1;
+  // speed = 1;
   frameCount = 0;
 }
 
