@@ -135,7 +135,7 @@ function showKeepUpsTitle() {
 function moveBall() {
   xKU = random(50, 350);
   yKU = 100;
-  speed = 1;
+  //speed = 1;
   frameCount = 0;
 }
 
