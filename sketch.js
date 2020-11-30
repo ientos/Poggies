@@ -202,6 +202,8 @@ function mouseClicked() {
       amountPressed = 0;
       xmousePointsArray = [];
       ymousePointsArray = [];
+      xmousePointsArray.length = 0;
+      ymousePointsArray.length = 0;
       letterIndex = 0;
     } else if (gameState == "SETTINGS") {
       gameState = "MENU";
