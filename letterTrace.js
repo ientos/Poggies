@@ -36,10 +36,13 @@ class letterTrace {
 }
 
 function drawInkGraph() {
+  textStyle(BOLDITALIC);
+  textAlign(CENTER, TOP);
+  textFont("Helvetica");
   strokeWeight(2);
-  textSize(16);
+  textSize(15);
   fill('orange');
-  text("Ink left: " + inkLevel, 45, 305);
+  text("Ink left: " + inkLevel, 46, 305);
   strokeWeight(0);
   fill(232, 129, 95);
   rect(15, 80, 55, 210);
@@ -49,12 +52,12 @@ function drawInkGraph() {
  
   fill(214, 206, 203);
   if (inkLevel >= 0) {
-    if (inkLevelSettings == 300) {
-      rect(20, 85, 45, (amountPressed) * 2/3);
-    } else if (inkLevelSettings == 400) {
-      rect(20, 85, 45, (amountPressed) / 2);
+    if (inkLevelSettings == 200) {
+      rect(20, 85, 45, (amountPressed) * (2));
+    } else if (inkLevelSettings == 350) {
+      rect(20, 85, 45, (amountPressed) / (1.75));
     } else if (inkLevelSettings == 500) {
-      rect(20, 85, 45, (amountPressed) * 4/10);
+      rect(20, 85, 45, (amountPressed) * (.4));
     }
   }
 
