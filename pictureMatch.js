@@ -1,21 +1,76 @@
 let cardWidth = 75
 let cardHeight = 90
-
+let radiusPM = 100;
 let homeButtonWidth = 60
 let homeButtonHeight = 40
+
+let pictureMatchPlaySong = true;
+
+let image1;
+let image2;
+let image3;
+let image4;
+let image5;
+let image6;
+let numofmatches = 0;
+let aradius = 50;
+let xposition = 85;
+let xposition2 = 200;
+let xposition3 = 315;
+let yposition = 160;
+let yposition2 = 270;
+let yposition3 = 380;
+let yposition4 = 490;
+let card1 = 1;
+let card2 = 2;
+let card3 = 3;
+let card4 = 4;
+let card5 = 4;
+let card6 = 5;
+let card7 = 5;
+let card8 = 3;
+let card9 = 2;
+let card10 = 1;
+let card11 = 6;
+let card12 = 6;
+let click1 = 0;
+let click2 = 0;
 
 class pictureMatch {
 
   show() {
     background(200, 200, 300)
-    showCardOutline();
     showHomeButtonPM();
+    showCardOutline();
+    drawWords();
+    drawPictures();
     showTitlePM();
   }
+
+  //music
+  songPictureMatchLoaded() {
+    if (pictureMatchPlaySong == true) {
+      pictureMatchPlaySong = false;
+      songPictureMatch.setVolume(musicVolume);
+      songPictureMatch.loop();
+    }
+  }
+
+}
+
+function drawPictures() {
+  image(tileMapPM, 46, 118, 90, 90, 340, 280, 180, 220);
+  image(tileMapPM, 45, 340, 80, 80, 0, 30, 200, 200);
+  image(tileMapPM, 275, 353, 85, 45, 266, 77, 300, 110);
+  image(tileMapPM, 275, 120, 80, 80, 584, 54, 210, 175);
+  image(tileMapPM, 161, 230, 80, 80, 16, 282, 236, 208);
+  image(tileMapPM, 166, 455, 76, 76, 625, 295, 155, 155);
 }
 
 //Title
 function showTitlePM() {
+  image(tileMap, 76, 20, 260, 50, 30, 2040, 1085, 162);
+  
   textAlign(LEFT, CENTER);
   fill(200, 300, 300);
   strokeWeight(3);
@@ -23,11 +78,9 @@ function showTitlePM() {
   textSize(35);
   textStyle(BOLDITALIC);
   textFont("Comic Sans MS");
-  text("Picture Match!", 76, 74);
   fill(100);
-  text("Picture Match!", 78, 76);
   textSize(20);
-  text("Points: " + points, 300, 50);
+  text("Matches: " + numofmatches, 145, 80);
 }
 
 //Home button
@@ -36,28 +89,39 @@ function showHomeButtonPM() {
   image(tileMap, 14, 14, 57, 26, 1280, 1980, 330, 130);
 }
 
-//Picture card outline
 function showCardOutline() {
-  let cardWidth = 75
-  let cardHeight = 90
-  
   stroke('white');
   strokeWeight(0);
   fill(98, 173, 188);
 
-  rect(50, 125, cardWidth, cardHeight);
-  rect(width / 2 - (cardWidth / 2), 125, cardWidth, cardHeight);
-  rect(width - cardWidth - 50, 125, cardWidth, cardHeight);
+  // row 1
+  ellipse(85, 160, radiusPM);
+  ellipse(200, 160, radiusPM);
+  ellipse(315, 160, radiusPM);
 
-  rect(50, 225, cardWidth, cardHeight);
-  rect(width / 2 - (cardWidth / 2), 225, cardWidth, cardHeight);
-  rect(width - cardWidth - 50, 225, cardWidth, cardHeight);
+  // row 2
+  ellipse(85, 270, radiusPM);
+  ellipse(200, 270, radiusPM);
+  ellipse(315, 270, radiusPM);
 
-  rect(50, 325, cardWidth, cardHeight);
-  rect(width / 2 - (cardWidth / 2), 325, cardWidth, cardHeight);
-  rect(width - cardWidth - 50, 325, cardWidth, cardHeight);
+  // row 3
+  ellipse(85, 380, radiusPM);
+  ellipse(200, 380, radiusPM);
+  ellipse(315, 380, radiusPM);
 
-  rect(50, 425, cardWidth, cardHeight);
-  rect(width / 2 - (cardWidth / 2), 425, cardWidth, cardHeight);
-  rect(width - cardWidth - 50, 425, cardWidth, cardHeight);
+  // row 4
+  ellipse(85, 490, radiusPM);
+  ellipse(200, 490, radiusPM);
+  ellipse(315, 490, radiusPM);
+}
+
+function drawWords() {
+  fill('black');
+  textSize(15);
+  text('Ice cream', 55, 485);
+  text('Dog', 70, 270);
+  text('Cat', 185, 380);
+  text('Car', 185, 160);
+  text('Ball', 300, 270);
+  text('Pencil', 290, 485);
 }
