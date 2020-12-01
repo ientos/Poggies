@@ -24,6 +24,8 @@ let b5dx = -200;
 
 class keepUps {
 
+//pog 
+
   show() {
     image(bg, 0, 0, width, height, 0, 50, width, 500);
     showBuildings();
