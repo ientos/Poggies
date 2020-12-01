@@ -1,4 +1,4 @@
-let timeOut = 1000;
+let timeOut = 3000;
 let runLS = false;
 let startGameLS = false;
 let img;

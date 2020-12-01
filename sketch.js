@@ -8,14 +8,14 @@ let songKeepUps;
 let selectSound;
 let backSound;
 let allowChangeState = false;
-// let inkLevel;
+let toRun = false;
 
 function preload() {
   songMenu = loadSound('assets/music_sound/someday8bit.mp3');
   songShapeTap = loadSound('assets/music_sound/soma8bit.mp3');
   songKeepUps = loadSound('assets/music_sound/autoshop8bit.mp3');
-  // songLetterTrace = loadSound('assets/music_sound/bad_decisions8bit2.mp3');
-  // songLetterTrace = loadSound('assets/music_sound/ode_mets8bit.mp3');
+  songPictureMatch = loadSound('assets/music_sound/bad_decisions8bit2.mp3');
+  // songPictureMatch = loadSound('assets/music_sound/ode_mets8bit.mp3');
   songLetterTrace = loadSound('assets/music_sound/selfless8bit.mp3');
 
 
@@ -32,6 +32,9 @@ function preload() {
   front4 = loadImage('assets/textures/buildings/front4.png');
   bg = loadImage('assets/textures/buildings/background.png');
 
+  tileMapPM = loadImage('assets/pictureMatch/tileMapPM.png');
+  H2P = loadImage('assets/textures/howToPlay.png');
+
 }
 
 
@@ -39,6 +42,7 @@ function setup() {
   createCanvas(400, 550);
   background('white');
 
+  howToPlay = new how_To_Play();
   loadingScreen = new loadingScreen();
   menuDisplay = new menuDisplay();
   pictureMatch = new pictureMatch();
@@ -70,6 +74,7 @@ function draw() {
       letterTrace.drawLetters();
       break;
     case "PICTURE MATCH":
+      pictureMatch.songPictureMatchLoaded();
       pictureMatch.show();
       break;
     case "KEEP UPS":
@@ -82,12 +87,24 @@ function draw() {
     case "RR":
       rr.show();
       break;
+    case "H2P":
+      howToPlay.show();
   }
 }
 
 function selectSoundPlay() {
   selectSound.setVolume(musicVolume);
   selectSound.play();
+}
+
+function backSoundPlay() {
+  backSound.setVolume(musicVolume);
+  backSound.play();
+}
+
+function playMenuSong() {
+  songMenu.loop();
+  allowChangeState = true;
 }
 
 function setShapeTapState() {
@@ -105,15 +122,38 @@ function setLetterTrace() {
   sizeY = -528;
 }
 
-function setCraftMine() {
-  gameState = "CRAFT MINE";
+function setPictureMatch() {
+  gameState = "PICTURE MATCH";
   sizeY = -528;
 }
 
-function playMenuSong() {
-  songMenu.loop();
-  allowChangeState = true;
+
+//picture match
+
+function checkIfMatched() {
+  if (click1 != 0 && click2 != 0) {
+    if (click1 == click2) {
+      matched();
+    } else {
+      noMatch();
+    }
+  }
 }
+
+function matched() {
+  alert("Match!!");
+  click1 = 0;
+  click2 = 0;
+  numofmatches++;
+}
+
+function noMatch() {
+  alert("No Match");
+  click1 = 0;
+  click2 = 0;
+}
+
+//
 
 function mouseClicked() {
   //iphone home screen
@@ -145,11 +185,11 @@ function mouseClicked() {
       selectSoundPlay();
       inkLevel = inkLevelSettings;
       setTimeout(setLetterTrace, 1000);
-      // } else if (mouseX >= 26 && mouseX <= 189 && mouseY >= 254 && mouseY <= 350) {
-      //   allowChangeState = false;
-      //   songMenu.stop();
-      //   selectSoundPlay();
-      //   // setTimeout(NEW GAME, 1000);
+    } else if (mouseX >= 26 && mouseX <= 189 && mouseY >= 254 && mouseY <= 350) {
+      allowChangeState = false;
+      songMenu.stop();
+      selectSoundPlay();
+      setTimeout(setPictureMatch, 1000);
     } else if (mouseX >= 211 && mouseX <= 374 & mouseY >= 254 && mouseY <= 350) {
       allowChangeState = false;
       songMenu.stop();
@@ -166,8 +206,11 @@ function mouseClicked() {
       menuPlaySong = true;
       gameState = "LOADING";
       sizeY = -260;
+    } else if (mouseX >= 360 && mouseX <= 390 && mouseY >= 510 && mouseY <= 540) {
+      gameState = "H2P";
     }
   }
+
   //home butoton
   else if (gameState != "RR" && gameState != "MENU" && (mouseX >= 11) && (mouseX <= 72) && (mouseY >= 11) && (mouseY <= 43)) {
     if (gameState == "SHAPE TAP") {
@@ -177,8 +220,7 @@ function mouseClicked() {
       songShapeTap.stop();
       shapeTapPlaySong = true;
       setTimeout(playMenuSong, 1000);
-      backSound.setVolume(musicVolume);
-      backSound.play();
+      backSoundPlay();
     } else if (gameState == "KEEP UPS") {
       gameState = "MENU";
       loop();
@@ -188,28 +230,28 @@ function mouseClicked() {
       speed = currentSpeed;
       songKeepUps.stop();
       setTimeout(playMenuSong, 1000);
-      backSound.setVolume(musicVolume);
-      backSound.play();
+      backSoundPlay();
       keepUpsPlaySong = true;
     } else if (gameState == "LETTER TRACE" || gameState == "PICTURE MATCH") {
       gameState = "MENU";
+      numofmatches = 0;
       songLetterTrace.stop();
-      backSound.setVolume(musicVolume);
-      backSound.play();
+      songPictureMatch.stop();
+      backSoundPlay();
       setTimeout(playMenuSong, 1000);
       letterTracePlaySong = true;
       inkLevel = inkLevelSettings;
       amountPressed = 0;
       xmousePointsArray = [];
       ymousePointsArray = [];
-      xmousePointsArray.length = 0;
-      ymousePointsArray.length = 0;
       letterIndex = 0;
     } else if (gameState == "SETTINGS") {
       gameState = "MENU";
       slider.hide();
       sliderRan = false;
       allowChangeState = true;
+    } else if (gameState == "H2P") {
+      gameState = "MENU";
     }
   } else if (gameState == "LETTER TRACE" && letterToDraw[letterIndex] != 'z' && mouseX >= 307 && mouseX <= 380 && mouseY >= 482 && mouseY <= 521) {
     letterIndex++;
@@ -226,6 +268,96 @@ function mouseClicked() {
   } else if (gameState == "KEEP UPS" && mouseX >= 112 && mouseX <= 301 && mouseY >= 202 && mouseY <= 312) {
     runKU = true;
     loop();
+  } else if (gameState == "PICTURE MATCH") {
+
+    if (dist(mouseX, mouseY, xposition, yposition) < aradius) {
+      if (click1 == 0) {
+        click1 = card1;
+      } else {
+        click2 = card1;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition, yposition2) < aradius) {
+      if (click1 == 0) {
+        click1 = card4;
+      } else {
+        click2 = card4;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition, yposition3) < aradius) {
+      if (click1 == 0) {
+        click1 = card7;
+      } else {
+        click2 = card7;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition, yposition4) < aradius) {
+      if (click1 == 0) {
+        click1 = card10;
+      } else {
+        click2 = card10;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition2, yposition) < aradius) {
+      if (click1 == 0) {
+        click1 = card2;
+      } else {
+        click2 = card2;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition2, yposition2) < aradius) {
+      if (click1 == 0) {
+        click1 = card5;
+      } else {
+        click2 = card5;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition2, yposition3) < aradius) {
+      if (click1 == 0) {
+        click1 = card8;
+      } else {
+        click2 = card8;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition2, yposition4) < aradius) {
+      if (click1 == 0) {
+        click1 = card11;
+      } else {
+        click2 = card11;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition3, yposition) < aradius) {
+      if (click1 == 0) {
+        click1 = card3;
+      } else {
+        click2 = card3;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition3, yposition2) < aradius) {
+      if (click1 == 0) {
+        click1 = card6;
+      } else {
+        click2 = card6;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition3, yposition3) < aradius) {
+      if (click1 == 0) {
+        click1 = card9;
+      } else {
+        click2 = card9;
+      }
+
+    } else if (dist(mouseX, mouseY, xposition3, yposition4) < aradius) {
+      if (click1 == 0) {
+        click1 = card12
+      } else {
+        click2 = card12
+      }
+
+    }
+
+    checkIfMatched();
+
   }
 
   //user selects 'dificulty' of Shape Tap
@@ -260,9 +392,9 @@ function mouseClicked() {
     } else if (mouseX >= 60 && mouseX <= 130 && mouseY >= 480 && mouseY <= 520) {
       inkLevelSettings = 500;
     } else if (mouseX >= 165 && mouseX <= 235 && mouseY >= 480 && mouseY <= 520) {
-      inkLevelSettings = 400;
+      inkLevelSettings = 350;
     } else if (mouseX >= 268 && mouseX <= 342 && mouseY >= 480 && mouseY <= 520) {
-      inkLevelSettings = 300;
+      inkLevelSettings = 200;
     }
 
   }
